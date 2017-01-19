@@ -1,0 +1,6 @@
+/config/app.conf
+
+go-api-vue
+
+/node_modules/
+/.idea/
