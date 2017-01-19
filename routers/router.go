@@ -1,3 +1,6 @@
+// @APIVersion 1.0.0
+// @Title Test API
+// @Description
 package routers
 
 import (
@@ -5,6 +8,21 @@ import (
 	"github.com/astaxie/beego"
 )
 
+// Go initializes packages and runs init() in every package,
 func init() {
-    beego.Router("/", &controllers.MainController{})
+	ns := beego.NewNamespace("/v1",
+		beego.NSNamespace("/user",
+			beego.NSInclude(
+				&controllers.UserController{},
+			),
+		),
+		beego.NSNamespace("/task",
+			beego.NSInclude(
+				&controllers.TaskController{},
+			),
+		),
+	)
+	beego.AddNamespace(ns)
+
+	beego.Router("/", &controllers.MainController{})
 }

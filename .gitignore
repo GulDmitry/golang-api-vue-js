@@ -1,6 +1,9 @@
-/config/app.conf
+/conf/app.conf
+/routers/commentsRouter_controllers.go
+/swagger/
 
 go-api-vue
+lastupdate.tmp
 
 /node_modules/
 /.idea/
