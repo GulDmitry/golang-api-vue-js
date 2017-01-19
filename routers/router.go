@@ -11,11 +11,6 @@ import (
 // Go initializes packages and runs init() in every package,
 func init() {
 	ns := beego.NewNamespace("/v1",
-		beego.NSNamespace("/user",
-			beego.NSInclude(
-				&controllers.UserController{},
-			),
-		),
 		beego.NSNamespace("/task",
 			beego.NSInclude(
 				&controllers.TaskController{},

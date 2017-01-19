@@ -8,6 +8,7 @@ import (
 	"github.com/guldmitry/go-api-vue/models"
 )
 
+// Operations about Tasks
 type TaskController struct {
 	beego.Controller
 }
@@ -43,14 +44,13 @@ func (this *TaskController) Get() {
 	this.ServeJSON()
 }
 
-// Examples:
-//
-//   req: POST /task/ {"Title": ""}
-//   res: 400 empty title
-//
-//   req: POST /task/ {"Title": "Buy bread"}
-//   res: 200
-func (this *TaskController) NewTask() {
+// @Title CreateTask
+// @Description create tasks
+// @Param	body		body 	models.Task	true		"body for task content"
+// @Success 200 {int} models.Task.Id
+// @Failure 403 body is empty
+// @router / [post]
+func (this *TaskController) Post() {
 	req := struct{ Title string }{}
 	if err := json.Unmarshal(this.Ctx.Input.RequestBody, &req); err != nil {
 		this.Ctx.Output.SetStatus(400)
@@ -66,14 +66,14 @@ func (this *TaskController) NewTask() {
 	models.DefaultTaskList.Save(t)
 }
 
-// Example:
-//
-//   req: PUT /task/1 {"ID": 1, "Title": "Learn Go", "Body": "", "Date": ""}
-//   res: 200
-//
-//   req: PUT /task/2 {"ID": 2, "Title": "Learn Go", "Body": "", "Date": ""}
-//   res: 400 inconsistent task IDs
-func (this *TaskController) UpdateTask() {
+// @Title Update
+// @Description update the task
+// @Param	id		path 	string	true		"The id you want to update"
+// @Param	body		body 	models.Task	true		"body for task content"
+// @Success 200 {object} models.Task
+// @Failure 403 :id is not int
+// @router /:id [put]
+func (this *TaskController) Put() {
 	id := this.Ctx.Input.Param(":id")
 	beego.Info("Task is ", id)
 	intid, _ := strconv.ParseInt(id, 10, 64)
@@ -83,9 +83,9 @@ func (this *TaskController) UpdateTask() {
 		this.Ctx.Output.Body([]byte(err.Error()))
 		return
 	}
-	if t.ID != intid {
+	if t.Id != intid {
 		this.Ctx.Output.SetStatus(400)
-		this.Ctx.Output.Body([]byte("inconsistent task IDs"))
+		this.Ctx.Output.Body([]byte("inconsistent task Ids"))
 		return
 	}
 	if _, ok := models.DefaultTaskList.Find(intid); !ok {
@@ -94,4 +94,18 @@ func (this *TaskController) UpdateTask() {
 		return
 	}
 	models.DefaultTaskList.Save(&t)
+}
+
+// @Title Delete
+// @Description delete the task
+// @Param	id		path 	string	true		"The id you want to delete"
+// @Success 200 {string} delete success!
+// @Failure 403 id is empty
+// @router /:id [delete]
+func (this *TaskController) Delete() {
+	id := this.GetString(":id")
+	intid, _ := strconv.ParseInt(id, 10, 64)
+	models.DefaultTaskList.Delete(intid)
+	this.Data["json"] = "delete success!"
+	this.ServeJSON()
 }

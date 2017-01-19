@@ -3,12 +3,13 @@ package models
 import (
 	"fmt"
 	"time"
+	"github.com/astaxie/beego"
 )
 
 var DefaultTaskList *TaskManager
 
 type Task struct {
-	ID    int64  // Unique identifier
+	Id    int64  // Unique identifier
 	Title string
 	Body  string // Description
 	Date  time.Time
@@ -28,31 +29,31 @@ func NewTask(title string) (*Task, error) {
 // TaskManager manages a list of tasks in memory.
 type TaskManager struct {
 	tasks  []*Task
-	lastID int64
+	lastId int64
 }
 
 // NewTaskManager returns an empty TaskManager.
 func NewTaskManager() *TaskManager {
 	return &TaskManager{
 		[]*Task{
-			{0, "Title", "", time.Now()},
-			{1, "Title 1", "", time.Now()},
+			{1, "Title", "", time.Now()},
+			{2, "Title 1", "", time.Now()},
 		},
-		1,
+		2,
 	}
 }
 
 // Save saves the given Task in the TaskManager.
 func (m *TaskManager) Save(task *Task) error {
-	if task.ID == 0 {
-		m.lastID++
-		task.ID = m.lastID
+	if task.Id == 0 {
+		m.lastId++
+		task.Id = m.lastId
 		m.tasks = append(m.tasks, cloneTask(task))
 		return nil
 	}
 
 	for i, t := range m.tasks {
-		if t.ID == task.ID {
+		if t.Id == task.Id {
 			m.tasks[i] = cloneTask(task)
 			return nil
 		}
@@ -73,13 +74,30 @@ func (m *TaskManager) All() []*Task {
 
 // Find returns the Task with the given id in the TaskManager and a boolean
 // indicating if the id was found.
-func (m *TaskManager) Find(ID int64) (*Task, bool) {
+func (m *TaskManager) Find(Id int64) (*Task, bool) {
 	for _, t := range m.tasks {
-		if t.ID == ID {
+		if t.Id == Id {
 			return t, true
 		}
 	}
 	return nil, false
+}
+
+// Delete Task by Id.
+func (m *TaskManager) Delete(Id int64) {
+	index := -1
+	tasks := m.tasks
+	for i, t := range tasks {
+		if t.Id == Id {
+			beego.Info("Record to delete ", t)
+			index = i
+		}
+	}
+	if index == -1 {
+		return
+	}
+	tasks[len(tasks)-1], tasks[index] = tasks[index], tasks[len(tasks)-1]
+	m.tasks = tasks[:len(tasks)-1]
 }
 
 func init() {

@@ -10,8 +10,7 @@ type MainController struct {
 }
 
 func (c *MainController) Get() {
-	c.Data["Website"] = "beego.me"
-	c.Data["Email"] = "astaxie@gmail.com"
+	c.Data["Title"] = "Golang + VueJs"
 	// If not specified, tried to find maincontroller/get.tpl
 	c.TplName = "index.tpl"
 	// Autorender is disabled.
