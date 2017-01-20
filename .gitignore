@@ -1,5 +1,5 @@
 /conf/app.conf
-/routers/commentsRouter_controllers.go
+/routers/commentsRouter_*.go
 /swagger/
 
 go-api-vue

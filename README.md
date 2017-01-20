@@ -14,8 +14,10 @@ Golang API and Vue JS frontend
 * Go to [http://localhost:8080](http://localhost:8080)
 * Docs [http://localhost:8080/swagger/](http://localhost:8080/swagger/)
 
+## Tests
+* `go test ./...` or `go test ./tests`
+
 #### TODO
 * Webpack + vue.
 * Sortable table + CRUD.
-* Model and controller tests.
 * Find out why `$GOPATH/bin/bee run -downdoc=true -gendoc=true` cannot generate docs.

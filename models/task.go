@@ -1,109 +1,121 @@
 package models
 
 import (
-	"fmt"
 	"time"
-	"github.com/astaxie/beego"
+	_ "github.com/astaxie/beego"
+	"github.com/satori/go.uuid"
+	"reflect"
+	"errors"
 )
 
-var DefaultTaskList *TaskManager
+type Tasks map[uuid.UUID]*Task
 
 type Task struct {
-	Id    int64  // Unique identifier
+	Id    uuid.UUID
 	Title string
-	Body  string // Description
+	Body  string
 	Date  time.Time
 }
 
-// NewTask creates a new task given a title, that can't be empty.
-func NewTask(title string) (*Task, error) {
-	if title == "" {
-		return nil, fmt.Errorf("empty title")
+// Check if tasks equal, Id is NOT checked.
+func (t Task) Equal(task Task) bool {
+	if (t.Title == task.Title && t.Body == task.Body && t.Date == task.Date) {
+		return true
 	}
+	return false
+}
+
+// NewTaskManager returns an empty Tasks.
+func NewTaskManager() Tasks {
+	return Tasks{}
+}
+
+// Validate tasks.
+func validateTask(t Task) error {
+	if (t.Id == uuid.Nil) {
+		return errors.New("Nil Id.")
+	}
+	if (t.Title == "") {
+		return errors.New("Empty title.")
+	}
+	return nil
+}
+
+// NewTask creates a new task given a title, that can't be empty.
+func NewTask(title string, body string) (Task, error) {
 	// t, err := time.Parse("2006-01-02", "2011-01-19")
 	// t.String(); t.Format("2006-01-02 15:04:05")
 	// time.Date(2009, time.November, 10, 23, 0, 0, 0, time.UTC)
-	return &Task{0, title, "", time.Now()}, nil
-}
+	task := Task{uuid.NewV4(), title, body, time.Now()}
 
-// TaskManager manages a list of tasks in memory.
-type TaskManager struct {
-	tasks  []*Task
-	lastId int64
-}
-
-// NewTaskManager returns an empty TaskManager.
-func NewTaskManager() *TaskManager {
-	return &TaskManager{
-		[]*Task{
-			{1, "Title", "", time.Now()},
-			{2, "Title 1", "", time.Now()},
-		},
-		2,
+	err := validateTask(task);
+	if err != nil {
+		return Task{}, err
 	}
+
+	return task, nil
 }
 
 // Save saves the given Task in the TaskManager.
-func (m *TaskManager) Save(task *Task) error {
-	if task.Id == 0 {
-		m.lastId++
-		task.Id = m.lastId
-		m.tasks = append(m.tasks, cloneTask(task))
-		return nil
+func (t Tasks) Save(task Task) (uuid.UUID, error) {
+	err := validateTask(task);
+	if err != nil {
+		return uuid.Nil, err
 	}
 
-	for i, t := range m.tasks {
-		if t.Id == task.Id {
-			m.tasks[i] = cloneTask(task)
-			return nil
-		}
+	task.Id = uuid.NewV4();
+	t[task.Id] = &task
+	return task.Id, nil
+}
+
+// Add a task with existing Id.
+func (t Tasks) Add(task Task) error {
+	err := validateTask(task);
+	if err != nil {
+		return err
 	}
-	return fmt.Errorf("unknown task")
+
+	t[task.Id] = &task
+
+	return nil
 }
 
-// cloneTask creates and returns a deep copy of the given Task.
-func cloneTask(t *Task) *Task {
-	c := *t
-	return &c
+// All returns the list of all the Tasks.
+func (t Tasks) All() []*Task {
+	v := []*Task{}
+	keys := reflect.ValueOf(t).MapKeys()
+
+	for _, id := range keys {
+		uid, _ := id.Interface().(uuid.UUID)
+		v = append(v, t[uid])
+	}
+	return v
 }
 
-// All returns the list of all the Tasks in the TaskManager.
-func (m *TaskManager) All() []*Task {
-	return m.tasks
-}
-
-// Find returns the Task with the given id in the TaskManager and a boolean
-// indicating if the id was found.
-func (m *TaskManager) Find(Id int64) (*Task, bool) {
-	for _, t := range m.tasks {
-		if t.Id == Id {
-			return t, true
-		}
+// Find returns the Task with the given id in the TaskManager.
+func (t Tasks) Find(Id uuid.UUID) (*Task, bool) {
+	if t, ok := t[Id]; ok {
+		return t, true
 	}
 	return nil, false
 }
 
-// Delete Task by Id.
-func (m *TaskManager) Delete(Id int64) {
-	index := -1
-	tasks := m.tasks
-	for i, t := range tasks {
-		if t.Id == Id {
-			beego.Info("Record to delete ", t)
-			index = i
-		}
+// Update task.
+func (t Tasks) Update(uid uuid.UUID, task Task) (*Task, error) {
+	if err := validateTask(task); err != nil {
+		return nil, err
 	}
-	if index == -1 {
-		return
+
+	if _, ok := t[uid]; ok {
+		// Save the id.
+		task.Id = uid
+		t[uid] = &task
+		return t[uid], nil
 	}
-	tasks[len(tasks)-1], tasks[index] = tasks[index], tasks[len(tasks)-1]
-	m.tasks = tasks[:len(tasks)-1]
+	return nil, errors.New("Task not exist.")
 }
 
-func init() {
-	//UserList = make(map[string]*User)
-	//u := User{"user_11111", "astaxie", "11111", Profile{"male", 20, "Singapore", "astaxie@gmail.com"}}
-	//UserList["user_11111"] = &u
-
-	DefaultTaskList = NewTaskManager()
+// Delete Task by Id.
+func (t Tasks) Delete(Id uuid.UUID) {
+	delete(t, Id)
 }
