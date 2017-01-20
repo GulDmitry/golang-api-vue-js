@@ -1,7 +1,7 @@
 package main
 
 import (
-	_ "github.com/guldmitry/go-api-vue/routers"
+	_ "github.com/guldmitry/go-api-vue-js/routers"
 	"github.com/astaxie/beego"
 )
 

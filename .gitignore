@@ -2,7 +2,7 @@
 /routers/commentsRouter_*.go
 /swagger/
 
-go-api-vue
+go-api-vue-js
 lastupdate.tmp
 
 /node_modules/

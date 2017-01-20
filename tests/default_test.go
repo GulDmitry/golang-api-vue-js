@@ -6,7 +6,7 @@ import (
 	"testing"
 	"runtime"
 	"path/filepath"
-	_ "github.com/guldmitry/go-api-vue/routers"
+	_ "github.com/guldmitry/go-api-vue-js/routers"
 
 	"github.com/astaxie/beego"
 	. "github.com/smartystreets/goconvey/convey"
@@ -46,7 +46,7 @@ import (
 	"testing"
 	"runtime"
 	"path/filepath"
-	_ "github.com/guldmitry/go-api-vue/test-api-app/routers"
+	_ "github.com/guldmitry/go-api-vue-js/test-api-app/routers"
 
 	"github.com/astaxie/beego"
 	. "github.com/smartystreets/goconvey/convey"

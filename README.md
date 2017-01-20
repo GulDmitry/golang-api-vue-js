@@ -1,5 +1,8 @@
-Golang API and Vue JS frontend
-==============================
+Golang API and Vue JS
+=====================
+
+## Inside
+* [Beego](https://beego.me/)
 
 ## Installation
 * `go get github.com/astaxie/beego`
