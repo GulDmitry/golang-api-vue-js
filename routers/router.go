@@ -10,6 +10,8 @@ import (
 
 // Go initializes packages and runs init() in every package,
 func init() {
+	beego.SetStaticPath("/assets", "static/assets")
+
 	ns := beego.NewNamespace("/v1",
 		beego.NSNamespace("/task",
 			beego.NSInclude(

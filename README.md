@@ -14,6 +14,9 @@ Golang API and Vue JS
 ## Run
 * `$GOPATH/bin/bee run`
 * Generate docs `$GOPATH/bin/bee generate docs`, run `$GOPATH/bin/bee run -downdoc=true` to download swagger.
+* Webpack
+  * For `runmode = prod` generate assets `NODE_ENV='production' ./node_modules/.bin/webpack -p`
+  * For `runmode = dev` run `./node_modules/.bin/webpack-dev-server --progress --colors --port 8081 --content-base=static/`
 * Go to [http://localhost:8080](http://localhost:8080)
 * Docs [http://localhost:8080/swagger/](http://localhost:8080/swagger/)
 

@@ -1,6 +1,8 @@
 /conf/app.conf
 /routers/commentsRouter_*.go
 /swagger/
+/static/assets/*
+!static/assets/.gitkeep
 
 go-api-vue-js
 lastupdate.tmp
