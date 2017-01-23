@@ -628,6 +628,11 @@
       "from": "block-stream@*",
       "resolved": "https://registry.npmjs.org/block-stream/-/block-stream-0.0.9.tgz"
     },
+    "bluebird": {
+      "version": "3.4.7",
+      "from": "bluebird@>=3.1.1 <4.0.0",
+      "resolved": "https://registry.npmjs.org/bluebird/-/bluebird-3.4.7.tgz"
+    },
     "bn.js": {
       "version": "4.11.6",
       "from": "bn.js@>=4.1.1 <5.0.0",
@@ -914,6 +919,11 @@
       "from": "concat-stream@>=1.4.6 <2.0.0",
       "resolved": "https://registry.npmjs.org/concat-stream/-/concat-stream-1.6.0.tgz"
     },
+    "config-chain": {
+      "version": "1.1.11",
+      "from": "config-chain@>=1.1.5 <1.2.0",
+      "resolved": "https://registry.npmjs.org/config-chain/-/config-chain-1.1.11.tgz"
+    },
     "connect-history-api-fallback": {
       "version": "1.3.0",
       "from": "connect-history-api-fallback@>=1.3.0 <2.0.0",
@@ -928,6 +938,11 @@
       "version": "1.1.0",
       "from": "console-control-strings@>=1.1.0 <1.2.0",
       "resolved": "https://registry.npmjs.org/console-control-strings/-/console-control-strings-1.1.0.tgz"
+    },
+    "consolidate": {
+      "version": "0.14.5",
+      "from": "consolidate@>=0.14.0 <0.15.0",
+      "resolved": "https://registry.npmjs.org/consolidate/-/consolidate-0.14.5.tgz"
     },
     "constants-browserify": {
       "version": "1.0.0",
@@ -1074,6 +1089,11 @@
       "from": "date-now@>=0.1.4 <0.2.0",
       "resolved": "https://registry.npmjs.org/date-now/-/date-now-0.1.4.tgz"
     },
+    "de-indent": {
+      "version": "1.0.2",
+      "from": "de-indent@>=1.0.2 <2.0.0",
+      "resolved": "https://registry.npmjs.org/de-indent/-/de-indent-1.0.2.tgz"
+    },
     "debug": {
       "version": "2.6.0",
       "from": "debug@>=2.1.1 <3.0.0",
@@ -1148,6 +1168,18 @@
       "version": "0.1.1",
       "from": "ecc-jsbn@>=0.1.1 <0.2.0",
       "resolved": "https://registry.npmjs.org/ecc-jsbn/-/ecc-jsbn-0.1.1.tgz"
+    },
+    "editorconfig": {
+      "version": "0.13.2",
+      "from": "editorconfig@>=0.13.2 <0.14.0",
+      "resolved": "https://registry.npmjs.org/editorconfig/-/editorconfig-0.13.2.tgz",
+      "dependencies": {
+        "lru-cache": {
+          "version": "3.2.0",
+          "from": "lru-cache@>=3.2.0 <4.0.0",
+          "resolved": "https://registry.npmjs.org/lru-cache/-/lru-cache-3.2.0.tgz"
+        }
+      }
     },
     "ee-first": {
       "version": "1.1.1",
@@ -1603,6 +1635,11 @@
       "from": "has-unicode@>=2.0.0 <3.0.0",
       "resolved": "https://registry.npmjs.org/has-unicode/-/has-unicode-2.0.1.tgz"
     },
+    "hash-sum": {
+      "version": "1.0.2",
+      "from": "hash-sum@>=1.0.2 <2.0.0",
+      "resolved": "https://registry.npmjs.org/hash-sum/-/hash-sum-1.0.2.tgz"
+    },
     "hash.js": {
       "version": "1.0.3",
       "from": "hash.js@>=1.0.0 <2.0.0",
@@ -1612,6 +1649,11 @@
       "version": "3.1.3",
       "from": "hawk@>=3.1.3 <3.2.0",
       "resolved": "https://registry.npmjs.org/hawk/-/hawk-3.1.3.tgz"
+    },
+    "he": {
+      "version": "1.1.0",
+      "from": "he@>=1.1.0 <2.0.0",
+      "resolved": "https://registry.npmjs.org/he/-/he-1.1.0.tgz"
     },
     "hoek": {
       "version": "2.16.3",
@@ -1719,6 +1761,11 @@
       "version": "2.0.3",
       "from": "inherits@>=2.0.1 <2.1.0",
       "resolved": "https://registry.npmjs.org/inherits/-/inherits-2.0.3.tgz"
+    },
+    "ini": {
+      "version": "1.3.4",
+      "from": "ini@>=1.3.4 <2.0.0",
+      "resolved": "https://registry.npmjs.org/ini/-/ini-1.3.4.tgz"
     },
     "inquirer": {
       "version": "0.12.0",
@@ -1904,6 +1951,11 @@
       "version": "2.1.9",
       "from": "js-base64@>=2.1.9 <3.0.0",
       "resolved": "https://registry.npmjs.org/js-base64/-/js-base64-2.1.9.tgz"
+    },
+    "js-beautify": {
+      "version": "1.6.8",
+      "from": "js-beautify@>=1.6.3 <2.0.0",
+      "resolved": "https://registry.npmjs.org/js-beautify/-/js-beautify-1.6.8.tgz"
     },
     "js-tokens": {
       "version": "3.0.0",
@@ -2712,6 +2764,11 @@
       "from": "progress@>=1.1.8 <2.0.0",
       "resolved": "https://registry.npmjs.org/progress/-/progress-1.1.8.tgz"
     },
+    "proto-list": {
+      "version": "1.2.4",
+      "from": "proto-list@>=1.2.1 <1.3.0",
+      "resolved": "https://registry.npmjs.org/proto-list/-/proto-list-1.2.4.tgz"
+    },
     "proxy-addr": {
       "version": "1.1.3",
       "from": "proxy-addr@>=1.1.2 <1.2.0",
@@ -3110,6 +3167,11 @@
       "version": "0.7.6",
       "from": "shelljs@>=0.7.0 <0.8.0",
       "resolved": "https://registry.npmjs.org/shelljs/-/shelljs-0.7.6.tgz"
+    },
+    "sigmund": {
+      "version": "1.0.1",
+      "from": "sigmund@>=1.0.1 <2.0.0",
+      "resolved": "https://registry.npmjs.org/sigmund/-/sigmund-1.0.1.tgz"
     },
     "signal-exit": {
       "version": "3.0.2",
@@ -3519,6 +3581,46 @@
       "version": "0.0.4",
       "from": "vm-browserify@0.0.4",
       "resolved": "https://registry.npmjs.org/vm-browserify/-/vm-browserify-0.0.4.tgz"
+    },
+    "vue": {
+      "version": "2.1.10",
+      "from": "vue@latest",
+      "resolved": "https://registry.npmjs.org/vue/-/vue-2.1.10.tgz"
+    },
+    "vue-hot-reload-api": {
+      "version": "2.0.8",
+      "from": "vue-hot-reload-api@>=2.0.1 <3.0.0",
+      "resolved": "https://registry.npmjs.org/vue-hot-reload-api/-/vue-hot-reload-api-2.0.8.tgz"
+    },
+    "vue-loader": {
+      "version": "10.0.2",
+      "from": "vue-loader@latest",
+      "resolved": "https://registry.npmjs.org/vue-loader/-/vue-loader-10.0.2.tgz"
+    },
+    "vue-router": {
+      "version": "2.1.3",
+      "from": "vue-router@latest",
+      "resolved": "https://registry.npmjs.org/vue-router/-/vue-router-2.1.3.tgz"
+    },
+    "vue-style-loader": {
+      "version": "1.0.0",
+      "from": "vue-style-loader@>=1.0.0 <2.0.0",
+      "resolved": "https://registry.npmjs.org/vue-style-loader/-/vue-style-loader-1.0.0.tgz"
+    },
+    "vue-template-compiler": {
+      "version": "2.1.10",
+      "from": "vue-template-compiler@latest",
+      "resolved": "https://registry.npmjs.org/vue-template-compiler/-/vue-template-compiler-2.1.10.tgz"
+    },
+    "vue-template-es2015-compiler": {
+      "version": "1.5.0",
+      "from": "vue-template-es2015-compiler@>=1.2.2 <2.0.0",
+      "resolved": "https://registry.npmjs.org/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.5.0.tgz"
+    },
+    "vuex": {
+      "version": "2.1.1",
+      "from": "vuex@latest",
+      "resolved": "https://registry.npmjs.org/vuex/-/vuex-2.1.1.tgz"
     },
     "watchpack": {
       "version": "1.2.0",

@@ -46,7 +46,6 @@
 
 <div class="jumbotron">
     <div class="container">
-        <h3></h3>
         Application to test Golang and Vue.Js.
     </div>
 </div>
@@ -55,15 +54,14 @@
     <!-- Example row of columns -->
     <div class="row">
         <div class="col-md-9">
-            Content
+            <div id="app"></div>
         </div>
         <div class="col-md-3">
-            <div id="sidebar"> Sidebar</div>
+            <div id="sidebar"></div>
         </div>
     </div>
 
     <hr>
-
     <footer class="footer">
         <p>&copy; 2017</p>
     </footer>

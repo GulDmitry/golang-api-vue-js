@@ -10,11 +10,12 @@ import (
 
 type Tasks map[uuid.UUID]*Task
 
+// Json syntax https://golang.org/pkg/encoding/json/#Marshal
 type Task struct {
-	Id    uuid.UUID
-	Title string
-	Body  string
-	Date  time.Time
+	Id    uuid.UUID `json:"id"`
+	Title string 	`json:"title"`
+	Body  string	`json:"body"`
+	Date  time.Time `json:"date"`
 }
 
 // Check if tasks equal, Id is NOT checked.

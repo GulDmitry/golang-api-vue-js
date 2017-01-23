@@ -17,14 +17,18 @@ const config = {
         rules: [
             {
                 test: /\.js$/,
-                loader: 'eslint-loader',
                 enforce: 'pre',
+                loader: 'eslint-loader',
                 exclude: /node_modules/,
             },
             {
                 test: /\.js$/,
                 exclude: /node_modules/,
                 loader: 'babel-loader'
+            },
+            {
+                test: /\.vue$/,
+                use: 'vue-loader'
             },
             {
                 test: /\.css$/,
@@ -56,6 +60,9 @@ const config = {
         new ExtractTextPlugin({
             filename: 'bundle.css'
         }),
+        new webpack.DefinePlugin({
+            'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
+        }),
         new webpack.ProvidePlugin({
             $: 'jquery',
             jQuery: 'jquery'
@@ -63,7 +70,12 @@ const config = {
         new webpack.NoEmitOnErrorsPlugin()
     ],
     externals: {},
-    resolve: {extensions: ['.js']}
+    resolve: {
+        alias: {
+            'vue$': 'vue/dist/vue.common.js'
+        },
+        extensions: ['.js', '.vue']
+    }
 };
 
 if (process.env.ENV === 'production') {

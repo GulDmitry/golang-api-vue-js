@@ -1,0 +1,21 @@
+/* Move down content because we have a fixed navbar that is 50px tall */
+body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+th.header-sort-desc:after {
+    content: '\f0d8';
+    font-family: FontAwesome;
+    font-size: 15px;
+    padding-left: 10px;
+    padding-bottom: 5px;
+}
+
+th.header-sort-asc:after {
+    content: '\f0d7';
+    font-family: FontAwesome;
+    font-size: 15px;
+    padding-left: 10px;
+    padding-bottom: 5px;
+}

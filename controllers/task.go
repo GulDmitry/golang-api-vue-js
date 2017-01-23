@@ -12,8 +12,8 @@ var TaskManager models.Tasks
 
 func init() {
 	TaskManager = models.NewTaskManager()
-	t1 := models.Task{uuid.FromStringOrNil("e977bc4d-ee93-4f98-a03f-d96734e042ba"), "Title 1", "Body", time.Now()}
-	t2 := models.Task{uuid.FromStringOrNil("b074ea11-6aec-4ea9-92c4-b2e473107244"), "Title 2", "Body", time.Now()}
+	t1 := models.Task{uuid.FromStringOrNil("e977bc4d-ee93-4f98-a03f-d96734e042ba"), "Title 1", "Body 2", time.Now()}
+	t2 := models.Task{uuid.FromStringOrNil("b074ea11-6aec-4ea9-92c4-b2e473107244"), "Title 2", "Body 1", time.Now()}
 	TaskManager[t1.Id] = &t1;
 	TaskManager[t2.Id] = &t2;
 }

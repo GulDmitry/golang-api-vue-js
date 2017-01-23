@@ -12,8 +12,8 @@ import (
 func init() {
 	beego.SetStaticPath("/assets", "static/assets")
 
-	ns := beego.NewNamespace("/v1",
-		beego.NSNamespace("/task",
+	ns := beego.NewNamespace("/api/v1",
+		beego.NSNamespace("/tasks",
 			beego.NSInclude(
 				&controllers.TaskController{},
 			),
