@@ -3,6 +3,8 @@ Golang API and Vue JS
 
 ## Inside
 * [Beego](https://beego.me/)
+* [Webpack 2](https://webpack.js.org/)
+* [Vue.js](https://vuejs.org) + [vuex](https://vuex.vuejs.org/en/)
 
 ## Installation
 * `go get github.com/astaxie/beego`
@@ -18,12 +20,14 @@ Golang API and Vue JS
   * For `runmode = prod` generate assets `NODE_ENV='production' ./node_modules/.bin/webpack -p`
   * For `runmode = dev` run `./node_modules/.bin/webpack-dev-server --progress --colors --port 8081 --content-base=static/`
 * Go to [http://localhost:8080](http://localhost:8080)
-* Docs [http://localhost:8080/swagger/](http://localhost:8080/swagger/)
+* API [http://localhost:8080/swagger/](http://localhost:8080/swagger/)
 
 ## Tests
 * `go test ./...` or `go test ./tests`
 
 #### TODO
-* Webpack + vue.
-* Sortable table + CRUD.
-* Find out why `$GOPATH/bin/bee run -downdoc=true -gendoc=true` cannot generate docs.
+* Edit page (vue or static).
+* Flash messages, error handling.
+* Filter as a separate component.
+* Find out why `$GOPATH/bin/bee run -downdoc=true -gendoc=true` does not work.
+* Data picker and format data on client.
