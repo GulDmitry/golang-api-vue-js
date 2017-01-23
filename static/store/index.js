@@ -13,7 +13,7 @@ export default new Vuex.Store({
         tasks: [],
     },
     mutations: {
-        // Component:
+        // In Component:
         // methods: {
         //     updateSearch(e) {
         //         this.$store.commit('SET_SEARCH', e.target.value)
@@ -21,6 +21,10 @@ export default new Vuex.Store({
         // },
         LOAD_TASKS(state, tasks) {
             state.tasks = tasks
+        },
+        REMOVE_TASK(state, task){
+            const tasks = state.tasks;
+            tasks.splice(tasks.indexOf(task), 1)
         },
         SET_SEARCH(state, search) {
             state.search = search
@@ -33,7 +37,7 @@ export default new Vuex.Store({
         }
     },
     actions: {
-        // Component
+        // In Component:
         // methods: {
         //     remove(todo){
         //         this.$store.dispatch('removeTodo', todo)
@@ -42,12 +46,24 @@ export default new Vuex.Store({
         loadTasks({commit}, tasks) {
             commit('LOAD_TASKS', tasks)
         },
+        removeTask({commit}, task) {
+            const ajaxPromise = Promise.resolve($.ajax({
+                method: 'DELETE',
+                url: `/api/v1/tasks/${task.id}`,
+            }));
+            ajaxPromise.then(() => {
+                commit('REMOVE_TASK', task)
+            }, (jqXHR) => {
+                const response = jqXHR.responseJSON;
+                console.log('Error!', response);
+            });
+        },
         setSearch({commit}, search) {
             commit('SET_SEARCH', search)
         }
     },
     getters: {
-        // Component:
+        // In Component:
         // computed: {
         //     todos(){
         //         return this.$store.getters.todos

@@ -19,6 +19,11 @@
                 <td>{{ item.title }}</td>
                 <td>{{ item.body }}</td>
                 <td>{{ item.date }}</td>
+                <td>
+                    <button type="button" @click="removeTask(item)" class="btn btn-danger btn-sm">
+                        <span class="glyphicon glyphicon-remove-circle" /> Remove
+                    </button>
+                </td>
             </tr>
             </tbody>
         </table>
@@ -30,11 +35,6 @@ import {mapState, mapActions} from 'vuex'
 
 export default{
     /*
-    methods: {
-        edit(todo){
-            this.$store.dispatch('editTodo', todo)
-        },
-    },
     computed: {
         todos(){
             return this.$store.getters.todos
@@ -44,6 +44,7 @@ export default{
     methods: {
         ...mapActions([
           'setSearch',
+          'removeTask'
           // {updateSearch: 'setSearch'}
         ]),
         sortBy: function(sortKey) {
