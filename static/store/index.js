@@ -65,10 +65,10 @@ export default new Vuex.Store({
     getters: {
         // In Component:
         // computed: {
-        //     todos(){
-        //         return this.$store.getters.todos
+        //     tasks(){
+        //         return this.$store.getters.tasks
         //     }
         // }
-        completedTodos: state => state.todos.filter((todo) => todo.completed),
+        tasks: state => state.tasks.filter(item => item.title.indexOf(state.search) > -1),
     }
 });

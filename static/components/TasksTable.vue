@@ -1,8 +1,9 @@
 <template>
-    <div class="container">
-        <h3 v-if="tasks.length > 0">All Tasks ({{tasks.length}})</h3>
-        <input :value="search" @input="setSearch($event.target.value)" class="form-control" placeholder="Filter title by name">
-
+    <div id="tasks-table" class="container">
+        <a href="/tasks/new" class="btn btn-lg btn-success pull-right">
+            <i class="fa fa-plus" aria-hidden="true"></i> Create task
+        </a>
+        <h3 v-if="tasks.length > 0">Tasks ({{tasks.length}})</h3>
         <table class="table table-striped">
             <thead>
             <tr>
@@ -15,7 +16,7 @@
             </thead>
 
             <tbody>
-            <tr v-for="item in filteredItems">
+            <tr v-for="item in sortedItems">
                 <td>{{ item.title }}</td>
                 <td>{{ item.body }}</td>
                 <td>{{ item.date }}</td>
@@ -34,18 +35,9 @@
 import {mapState, mapActions} from 'vuex'
 
 export default{
-    /*
-    computed: {
-        todos(){
-            return this.$store.getters.todos
-        }
-    }
-    */
     methods: {
         ...mapActions([
-          'setSearch',
           'removeTask'
-          // {updateSearch: 'setSearch'}
         ]),
         sortBy: function(sortKey) {
             this.$store.commit('SET_REVERSE', this.$store.state.sortKey == sortKey ? !this.$store.state.reverse : false)
@@ -62,16 +54,15 @@ export default{
     },
     computed: {
         ...mapState({
-            tasks: state => state.tasks,
-            search: state => state.search,
             sortKey: state => state.sortKey,
-            newUser: state => state.newUser,
             columns: state => state.columns,
             reverse: state => state.reverse
         }),
-        filteredItems() {
-            return this.$store.state.tasks.filter(item => item.title.indexOf(this.$store.state.search) > -1) // filterBy
-                .sort((a, b) => {
+        tasks(){
+            return this.$store.getters.tasks
+        },
+        sortedItems() {
+            return this.$store.getters.tasks.sort((a, b) => {
                     let v1 = a[this.$store.state.sortKey], v2 = b[this.$store.state.sortKey];
                     if (this.$store.state.reverse) {
                         v2 = [v1, v1 = v2][0];

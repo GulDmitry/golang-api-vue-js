@@ -27,7 +27,7 @@ Golang API and Vue JS
 
 #### TODO
 * Edit page (vue or static).
+* User, session.
 * Flash messages, error handling.
-* Filter as a separate component.
 * Find out why `$GOPATH/bin/bee run -downdoc=true -gendoc=true` does not work.
 * Data picker and format data on client.

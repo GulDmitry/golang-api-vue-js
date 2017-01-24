@@ -1,15 +1,19 @@
 <template>
     <div>
-        <CurrentTasks></CurrentTasks>
+        <TasksFilter></TasksFilter>
+        <br/>
+        <TasksTable></TasksTable>
     </div>
 </template>
 
 <script>
-import CurrentTasks from './CurrentTasks'
+import TasksTable from './TasksTable'
+import TasksFilter from './TasksFilter'
 
 export default {
   components: {
-    CurrentTasks,
+    TasksTable,
+    TasksFilter
   }
 }
 </script>
