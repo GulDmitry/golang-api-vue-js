@@ -27,9 +27,9 @@ type TaskController struct {
 // @Description Get all Tasks
 // @Success 200 {object} models.Task
 // @router / [get]
-func (this *TaskController) GetAll() {
-	this.Data["json"] = TaskManager.All()
-	this.ServeJSON()
+func (c *TaskController) GetAll() {
+	c.Data["json"] = TaskManager.All()
+	c.ServeJSON()
 }
 
 // @Title Get

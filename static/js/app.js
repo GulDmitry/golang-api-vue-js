@@ -9,7 +9,7 @@ import App from '../components/App'
 import store from '../store'
 
 $(document).ready(function() {
-    new Vue({
+    const appConfig = {
         el: '#app',
         store,
         render: h => h(App),
@@ -34,5 +34,9 @@ $(document).ready(function() {
                     });
             }
         },
-    });
+    };
+
+    if ($('#app').length) {
+        new Vue(appConfig)
+    }
 });

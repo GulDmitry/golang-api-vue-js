@@ -14,6 +14,8 @@ func (c *MainController) Prepare() {
 	} else {
 		c.Data["assetsUrl"] = ""
 	}
+	// To receive flash messages.
+	beego.ReadFromRequest(&c.Controller)
 
 	c.Data["Title"] = "Golang + VueJs"
 	c.Layout = "layout.tpl"
