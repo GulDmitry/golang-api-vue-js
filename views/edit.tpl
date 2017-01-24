@@ -10,7 +10,7 @@
             </div>
             <div class="form-group">
                 <label class="control-label required" for="post_body">Body</label>
-                <textarea id="post_body" name="body" required="required" rows="20" class="form-control">{{.task.Body}}</textarea>
+                <textarea id="post_body" name="body" required="required" rows="10" class="form-control">{{.task.Body}}</textarea>
             </div>
 
             <input type="submit" value="Save Task" class="btn btn-primary">

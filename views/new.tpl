@@ -10,7 +10,7 @@
             </div>
             <div class="form-group">
                 <label class="control-label required" for="post_body">Body</label>
-                <textarea id="post_body" name="body" required="required" rows="20" class="form-control"></textarea>
+                <textarea id="post_body" name="body" required="required" rows="10" class="form-control"></textarea>
             </div>
             {{/*<div class="form-group">
                 <label class="control-label required" for="post_publishedAt">Published at</label>

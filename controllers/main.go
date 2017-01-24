@@ -19,6 +19,10 @@ func (c *MainController) Prepare() {
 
 	c.Data["Title"] = "Golang + VueJs"
 	c.Layout = "layout.tpl"
+
+	c.LayoutSections = map[string]string{
+		"ErrorBox":"error_box.tpl",
+	}
 	// If not specified, tried to find maincontroller/get.tpl
 	c.TplName = "index.tpl"
 }
