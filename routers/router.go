@@ -23,6 +23,10 @@ func init() {
 	beego.AddNamespace(ns)
 
 	beego.Router("/", &controllers.MainController{})
+	// Register via annotations.
+	beego.Include(&controllers.TaskController{})
+	// Override GET handling.
 	beego.Router("/tasks/new", &controllers.TaskController{}, "GET:Index")
+	// To handle POST. Order is important.
 	beego.Router("/tasks/new", &controllers.TaskController{})
 }

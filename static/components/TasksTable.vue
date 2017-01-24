@@ -1,5 +1,5 @@
 <template>
-    <div id="tasks-table" class="container">
+    <div id="tasks-table">
         <a href="/tasks/new" class="btn btn-lg btn-success pull-right">
             <i class="fa fa-plus" aria-hidden="true"></i> Create task
         </a>
@@ -20,6 +20,11 @@
                 <td>{{ item.title }}</td>
                 <td>{{ item.body }}</td>
                 <td>{{ item.date }}</td>
+                <td>
+                    <a :href="'/tasks/edit/' + item.id" class="btn btn-sm btn-primary">
+                        <i class="fa fa-edit" aria-hidden="true"></i> Edit
+                    </a>
+                </td>
                 <td>
                     <button type="button" @click="removeTask(item)" class="btn btn-danger btn-sm">
                         <span class="glyphicon glyphicon-remove-circle" /> Remove

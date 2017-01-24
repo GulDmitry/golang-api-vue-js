@@ -26,7 +26,6 @@ Golang API and Vue JS
 * `go test ./...` or `go test ./tests`
 
 #### TODO
-* Edit page (vue or static).
 * User, session.
-* Find out why `$GOPATH/bin/bee run -downdoc=true -gendoc=true` does not work.
 * Data picker and format data on client.
+* Find out why `$GOPATH/bin/bee run -downdoc=true -gendoc=true` does not work.

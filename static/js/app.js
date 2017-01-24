@@ -37,6 +37,7 @@ $(document).ready(function() {
     };
 
     if ($('#app').length) {
+        // Or (new Vue()).$mount("#app")
         new Vue(appConfig)
     }
 });

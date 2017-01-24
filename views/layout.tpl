@@ -51,26 +51,28 @@
 </div>
 
 <div class="container">
-    <div class="row">
-        <div class="col-md-9">
+    <div class="row container">
+        <div class="col-md-12">
             {{if .flash.notice}}
-                <div class='alert alert-success alert-dismissable fade in'>
-                    <a href='#' onClick="" class='close' data-dismiss='alert' aria-label='close'>&times;</a>
-                    {{str2html .flash.notice}}
-                </div>
+            <div class='alert alert-success alert-dismissable fade in'>
+                <a href='#' onClick="" class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+                {{str2html .flash.notice}}
+            </div>
             {{end}}
             {{if .flash.warning}}
-                <div class='alert alert-warning alert-dismissable fade in'>
-                    <a href='#' onClick="" class='close' data-dismiss='alert' aria-label='close'>&times;</a>
-                    {{str2html .flash.warning}}
-                </div>
+            <div class='alert alert-warning alert-dismissable fade in'>
+                <a href='#' onClick="" class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+                {{str2html .flash.warning}}
+            </div>
             {{end}}
             {{if .flash.error}}
-                <div class='alert alert-danger alert-dismissable fade in'>
-                    <a href='#' onClick="" class='close' data-dismiss='alert' aria-label='close'>&times;</a>
-                    {{str2html .flash.error}}
-                </div>
+            <div class='alert alert-danger alert-dismissable fade in'>
+                <a href='#' onClick="" class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+                {{str2html .flash.error}}
+            </div>
             {{end}}
+        </div>
+        <div class="col-md-9">
             {{.LayoutContent}}
         </div>
         <div class="col-md-3">

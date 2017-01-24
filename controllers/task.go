@@ -28,6 +28,45 @@ func (c *TaskController) Index() {
 	c.Render();
 }
 
+// @router /tasks/edit/:id [GET]
+// @router /tasks/edit/:id [POST]
+func (c *TaskController) Edit() {
+	id := c.Ctx.Input.Param(":id")
+	uid := uuid.FromStringOrNil(id)
+	beego.Info("Edit Task ", uid)
+
+	t, ok := rest.TaskManager.Find(uid)
+	if !ok {
+		c.Ctx.Output.SetStatus(404)
+		c.Ctx.Output.Body([]byte("Task not found."))
+		return
+	}
+
+	// Handle POST
+	if (len(c.Input()) > 0) {
+		flash := beego.NewFlash()
+		taskForm := Task{}
+		if err := c.ParseForm(&taskForm); err != nil {
+			beego.Info("Form parse error!")
+		}
+		newTask, _ := models.NewTask(taskForm.Title, taskForm.Body)
+		updatedTask, err := rest.TaskManager.Update(uid, newTask)
+		if err != nil {
+			flash.Error("Edit failed.<br/>" + err.Error())
+		} else {
+			flash.Notice("Edited successfully.")
+		}
+		flash.Store(&c.Controller)
+
+		c.Data["task"] = updatedTask
+	} else {
+		c.Data["task"] = t
+	}
+
+	c.TplName = "edit.tpl"
+	c.Render();
+}
+
 func (c *TaskController) Post() {
 	flash := beego.NewFlash()
 	t := Task{}
@@ -50,6 +89,7 @@ func (c *TaskController) Post() {
 		flash.Error(errorMessage)
 		flash.Store(&c.Controller)
 		c.Index();
+		return
 	} else {
 		task, _ := models.NewTask(t.Title, t.Body)
 		rest.TaskManager.Save(task)
