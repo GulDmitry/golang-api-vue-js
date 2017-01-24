@@ -38,20 +38,20 @@ func (c *TaskController) GetAll() {
 // @Success 200 {object} models.Task
 // @Failure 403 :uid is empty
 // @router /:id [get]
-func (this *TaskController) Get() {
-	id := this.Ctx.Input.Param(":id")
+func (c *TaskController) Get() {
+	id := c.Ctx.Input.Param(":id")
 	uid := uuid.FromStringOrNil(id)
 	beego.Info("Task is ", id, uid)
 
 	t, ok := TaskManager.Find(uid)
 	beego.Info("Found", ok)
 	if !ok {
-		this.Ctx.Output.SetStatus(404)
-		this.Ctx.Output.Body([]byte("Task not found."))
+		c.Ctx.Output.SetStatus(404)
+		c.Ctx.Output.Body([]byte("Task not found."))
 		return
 	}
-	this.Data["json"] = t
-	this.ServeJSON()
+	c.Data["json"] = t
+	c.ServeJSON()
 }
 
 // @Title CreateTask
@@ -60,20 +60,20 @@ func (this *TaskController) Get() {
 // @Success 200 {int} models.Task.Id
 // @Failure 403 body is empty
 // @router / [post]
-func (this *TaskController) Post() {
+func (c *TaskController) Post() {
 	req := struct {
 		Title string
 		Body  string
 	}{}
-	if err := json.Unmarshal(this.Ctx.Input.RequestBody, &req); err != nil {
-		this.Ctx.Output.SetStatus(400)
-		this.Ctx.Output.Body([]byte("Empty title or body."))
+	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &req); err != nil {
+		c.Ctx.Output.SetStatus(400)
+		c.Ctx.Output.Body([]byte("Empty title or body."))
 		return
 	}
 	t, err := models.NewTask(req.Title, req.Body)
 	if err != nil {
-		this.Ctx.Output.SetStatus(400)
-		this.Ctx.Output.Body([]byte(err.Error()))
+		c.Ctx.Output.SetStatus(400)
+		c.Ctx.Output.Body([]byte(err.Error()))
 		return
 	}
 	TaskManager.Save(t)
@@ -86,21 +86,21 @@ func (this *TaskController) Post() {
 // @Success 200 {object} models.Task
 // @Failure 403 :id is not int
 // @router /:id [put]
-func (this *TaskController) Put() {
-	id := this.Ctx.Input.Param(":id")
+func (c *TaskController) Put() {
+	id := c.Ctx.Input.Param(":id")
 	uid := uuid.FromStringOrNil(id)
 
 	var t models.Task
-	if err := json.Unmarshal(this.Ctx.Input.RequestBody, &t); err != nil {
-		this.Ctx.Output.SetStatus(400)
-		this.Ctx.Output.Body([]byte(err.Error()))
+	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &t); err != nil {
+		c.Ctx.Output.SetStatus(400)
+		c.Ctx.Output.Body([]byte(err.Error()))
 		return
 	}
 	beego.Info("Task is ", t)
 
 	if _, ok := TaskManager.Find(uid); !ok {
-		this.Ctx.Output.SetStatus(400)
-		this.Ctx.Output.Body([]byte("Task not found."))
+		c.Ctx.Output.SetStatus(400)
+		c.Ctx.Output.Body([]byte("Task not found."))
 		return
 	}
 
@@ -109,8 +109,8 @@ func (this *TaskController) Put() {
 
 	_, err := TaskManager.Update(uid, t)
 	if err != nil {
-		this.Ctx.Output.SetStatus(400)
-		this.Ctx.Output.Body([]byte(err.Error()))
+		c.Ctx.Output.SetStatus(400)
+		c.Ctx.Output.Body([]byte(err.Error()))
 		return
 	}
 }
@@ -121,12 +121,12 @@ func (this *TaskController) Put() {
 // @Success 200 {string} delete success!
 // @Failure 403 id is empty
 // @router /:id [delete]
-func (this *TaskController) Delete() {
-	id := this.GetString(":id")
+func (c *TaskController) Delete() {
+	id := c.GetString(":id")
 	uid := uuid.FromStringOrNil(id)
 
 	TaskManager.Delete(uid)
 
-	this.Data["json"] = "delete success!"
-	this.ServeJSON()
+	c.Data["json"] = "delete success!"
+	c.ServeJSON()
 }
