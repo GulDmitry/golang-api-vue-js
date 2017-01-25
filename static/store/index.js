@@ -46,17 +46,17 @@ export default new Vuex.Store({
         loadTasks({commit}, tasks) {
             commit('LOAD_TASKS', tasks)
         },
-        removeTask({commit}, task) {
-            const ajaxPromise = Promise.resolve($.ajax({
-                method: 'DELETE',
-                url: `/api/v1/tasks/${task.id}`,
-            }));
-            ajaxPromise.then(() => {
+        async removeTask({commit}, task) {
+            try {
+                await $.ajax({
+                    method: 'DELETE',
+                    url: `/api/v1f/tasks/${task.id}`,
+                });
                 commit('REMOVE_TASK', task)
-            }, (jqXHR) => {
+            } catch (jqXHR) {
                 const response = jqXHR.responseJSON;
                 console.log('Error!', response);
-            });
+            }
         },
         setSearch({commit}, search) {
             commit('SET_SEARCH', search)

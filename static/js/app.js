@@ -19,18 +19,19 @@ $(document).ready(function() {
         },
         methods: {
             loadTasks() {
-                const ajaxPromise = Promise.resolve($.ajax({
+                const ajaxPromise = $.ajax({
                     method: 'GET',
                     url: '/api/v1/tasks',
-                }));
+                });
                 ajaxPromise
                     .then((response) => {
-                        this.$store.dispatch('loadTasks', response)
+                        this.$store.dispatch('loadTasks', response);
+                        // in case of chain like then({}).then{} the `return new Promise(() => reject());` is required
+                        // or return anything.
                     })
                     .catch((jqXHR) => {
                         const response = jqXHR.responseJSON;
                         console.log('Error!', response);
-                        // in case of chain like then({}).then{} the `return new Promise(() => reject());` is required
                     });
             }
         },
