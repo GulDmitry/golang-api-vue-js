@@ -26,6 +26,8 @@ Golang API and Vue JS
 * `go test ./...` or `go test ./tests`
 
 #### TODO
-* User, session.
+* User.
 * Data picker and format data on client.
+* ORM.
+* Docker env.
 * Find out why `$GOPATH/bin/bee run -downdoc=true -gendoc=true` does not work.

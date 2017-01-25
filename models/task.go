@@ -6,13 +6,15 @@ import (
 	"github.com/satori/go.uuid"
 	"reflect"
 	"errors"
+	"github.com/astaxie/beego"
 )
 
-type Tasks map[uuid.UUID]*Task
+// String to be able to JSON the map.
+type Tasks map[string]*Task
 
 // Json syntax https://golang.org/pkg/encoding/json/#Marshal
 type Task struct {
-	Id    uuid.UUID `json:"id"`
+	Id    string 	`json:"id"`
 	Title string 	`json:"title"`
 	Body  string	`json:"body"`
 	Date  time.Time `json:"date"`
@@ -33,7 +35,7 @@ func NewTaskManager() Tasks {
 
 // Validate tasks.
 func validateTask(t Task) error {
-	if (t.Id == uuid.Nil) {
+	if (t.Id == "") {
 		return errors.New("Nil Id.")
 	}
 	if (t.Title == "") {
@@ -47,7 +49,7 @@ func NewTask(title string, body string) (Task, error) {
 	// t, err := time.Parse("2006-01-02", "2011-01-19")
 	// t.String(); t.Format("2006-01-02 15:04:05")
 	// time.Date(2009, time.November, 10, 23, 0, 0, 0, time.UTC)
-	task := Task{uuid.NewV4(), title, body, time.Now()}
+	task := Task{uuid.NewV4().String(), title, body, time.Now()}
 
 	err := validateTask(task);
 	if err != nil {
@@ -58,13 +60,13 @@ func NewTask(title string, body string) (Task, error) {
 }
 
 // Save saves the given Task in the TaskManager.
-func (t Tasks) Save(task Task) (uuid.UUID, error) {
+func (t Tasks) Save(task Task) (string, error) {
 	err := validateTask(task);
 	if err != nil {
-		return uuid.Nil, err
+		return "", err
 	}
 
-	task.Id = uuid.NewV4();
+	task.Id = uuid.NewV4().String();
 	t[task.Id] = &task
 	return task.Id, nil
 }
@@ -87,14 +89,14 @@ func (t Tasks) All() []*Task {
 	keys := reflect.ValueOf(t).MapKeys()
 
 	for _, id := range keys {
-		uid, _ := id.Interface().(uuid.UUID)
+		uid, _ := id.Interface().(string)
 		v = append(v, t[uid])
 	}
 	return v
 }
 
 // Find returns the Task with the given id in the TaskManager.
-func (t Tasks) Find(Id uuid.UUID) (*Task, bool) {
+func (t Tasks) Find(Id string) (*Task, bool) {
 	if t, ok := t[Id]; ok {
 		return t, true
 	}
@@ -102,7 +104,7 @@ func (t Tasks) Find(Id uuid.UUID) (*Task, bool) {
 }
 
 // Update task.
-func (t Tasks) Update(uid uuid.UUID, task Task) (*Task, error) {
+func (t Tasks) Update(uid string, task Task) (*Task, error) {
 	if err := validateTask(task); err != nil {
 		return nil, err
 	}
@@ -117,6 +119,7 @@ func (t Tasks) Update(uid uuid.UUID, task Task) (*Task, error) {
 }
 
 // Delete Task by Id.
-func (t Tasks) Delete(Id uuid.UUID) {
+func (t Tasks) Delete(Id string) {
 	delete(t, Id)
+	beego.Info("After delete", t)
 }

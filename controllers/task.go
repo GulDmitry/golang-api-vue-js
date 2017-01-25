@@ -3,8 +3,6 @@ package controllers
 import (
 	"time"
 	"log"
-	"github.com/satori/go.uuid"
-	"github.com/guldmitry/go-api-vue-js/controllers/rest"
 	"github.com/astaxie/beego/validation"
 	"github.com/astaxie/beego"
 	"github.com/guldmitry/go-api-vue-js/models"
@@ -15,7 +13,7 @@ type TaskController struct {
 }
 
 type Task struct {
-	Id    uuid.UUID `form:"-"`
+	Id    string    `form:"-"`
 	Title string    `form:"title"`
 	Body  string    `form:"body"`
 	Date  time.Time
@@ -31,11 +29,10 @@ func (c *TaskController) Index() {
 // @router /tasks/edit/:id [GET]
 // @router /tasks/edit/:id [POST]
 func (c *TaskController) Edit() {
-	id := c.Ctx.Input.Param(":id")
-	uid := uuid.FromStringOrNil(id)
+	uid := c.Ctx.Input.Param(":id")
 	beego.Info("Edit Task ", uid)
 
-	t, ok := rest.TaskManager.Find(uid)
+	t, ok := TaskManager.Find(uid)
 	if !ok {
 		c.Ctx.Output.SetStatus(404)
 		c.Ctx.Output.Body([]byte("Task not found."))
@@ -50,7 +47,7 @@ func (c *TaskController) Edit() {
 			beego.Info("Form parse error!")
 		}
 		newTask, _ := models.NewTask(taskForm.Title, taskForm.Body)
-		updatedTask, err := rest.TaskManager.Update(uid, newTask)
+		updatedTask, err := TaskManager.Update(uid, newTask)
 		if err != nil {
 			flash.Error("Edit failed.<br/>" + err.Error())
 		} else {
@@ -92,7 +89,7 @@ func (c *TaskController) Post() {
 		return
 	} else {
 		task, _ := models.NewTask(t.Title, t.Body)
-		rest.TaskManager.Save(task)
+		TaskManager.Save(task)
 
 		flash.Notice("Task was created successfully.")
 		flash.Store(&c.Controller)

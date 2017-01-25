@@ -5,7 +5,6 @@ package routers
 
 import (
 	"github.com/guldmitry/go-api-vue-js/controllers"
-	restControllers "github.com/guldmitry/go-api-vue-js/controllers/rest"
 	"github.com/astaxie/beego"
 )
 
@@ -16,7 +15,7 @@ func init() {
 	ns := beego.NewNamespace("/api/v1",
 		beego.NSNamespace("/tasks",
 			beego.NSInclude(
-				&restControllers.TaskController{},
+				&controllers.V1TaskController{},
 			),
 		),
 	)

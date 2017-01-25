@@ -1,33 +1,28 @@
-package rest
+package controllers
 
 import (
 	"github.com/astaxie/beego"
 	"github.com/guldmitry/go-api-vue-js/models"
 	"github.com/satori/go.uuid"
-	"time"
 	"encoding/json"
 )
 
 var TaskManager models.Tasks
 
 func init() {
-	TaskManager = models.NewTaskManager()
-	t1 := models.Task{uuid.FromStringOrNil("e977bc4d-ee93-4f98-a03f-d96734e042ba"), "Title 1", "Body 2", time.Now()}
-	t2 := models.Task{uuid.FromStringOrNil("b074ea11-6aec-4ea9-92c4-b2e473107244"), "Title 2", "Body 1", time.Now()}
-	TaskManager[t1.Id] = &t1;
-	TaskManager[t2.Id] = &t2;
+	// The manager can be initialized here.
+	//TaskManager = models.NewTaskManager()
 }
 
-// Operations about Tasks
-type TaskController struct {
-	beego.Controller
+type V1TaskController struct {
+	MainController
 }
 
 // @Title GetAll
 // @Description Get all Tasks
 // @Success 200 {object} models.Task
 // @router / [get]
-func (c *TaskController) GetAll() {
+func (c *V1TaskController) GetAll() {
 	c.Data["json"] = TaskManager.All()
 	c.ServeJSON()
 }
@@ -38,10 +33,9 @@ func (c *TaskController) GetAll() {
 // @Success 200 {object} models.Task
 // @Failure 403 :uid is empty
 // @router /:id [get]
-func (c *TaskController) Get() {
-	id := c.Ctx.Input.Param(":id")
-	uid := uuid.FromStringOrNil(id)
-	beego.Info("Task is ", id, uid)
+func (c *V1TaskController) Get() {
+	uid := c.Ctx.Input.Param(":id")
+	beego.Info("Task is ", uid)
 
 	t, ok := TaskManager.Find(uid)
 	beego.Info("Found", ok)
@@ -60,7 +54,7 @@ func (c *TaskController) Get() {
 // @Success 200 {int} models.Task.Id
 // @Failure 403 body is empty
 // @router / [post]
-func (c *TaskController) Post() {
+func (c *V1TaskController) Post() {
 	req := struct {
 		Title string
 		Body  string
@@ -86,9 +80,8 @@ func (c *TaskController) Post() {
 // @Success 200 {object} models.Task
 // @Failure 403 :id is not int
 // @router /:id [put]
-func (c *TaskController) Put() {
-	id := c.Ctx.Input.Param(":id")
-	uid := uuid.FromStringOrNil(id)
+func (c *V1TaskController) Put() {
+	uid := c.Ctx.Input.Param(":id")
 
 	var t models.Task
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &t); err != nil {
@@ -105,7 +98,7 @@ func (c *TaskController) Put() {
 	}
 
 	// Generate a valid Id to pass validation check.
-	t.Id = uuid.NewV4()
+	t.Id = uuid.NewV4().String()
 
 	_, err := TaskManager.Update(uid, t)
 	if err != nil {
@@ -121,9 +114,8 @@ func (c *TaskController) Put() {
 // @Success 200 {string} delete success!
 // @Failure 403 id is empty
 // @router /:id [delete]
-func (c *TaskController) Delete() {
-	id := c.GetString(":id")
-	uid := uuid.FromStringOrNil(id)
+func (c *V1TaskController) Delete() {
+	uid := c.GetString(":id")
 
 	TaskManager.Delete(uid)
 
