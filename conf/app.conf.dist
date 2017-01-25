@@ -7,3 +7,7 @@ EnableDocs = true
 copyrequestbody = true
 # Templates auto render.
 autorender = false
+# Session
+SessionOn = true
+SessionProvider = "file"
+SessionProviderConfig = "./var/sessions"

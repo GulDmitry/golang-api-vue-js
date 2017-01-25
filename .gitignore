@@ -3,6 +3,10 @@
 /swagger/
 /static/assets/*
 !static/assets/.gitkeep
+/var/*
+!/var/sessions
+/var/sessions/*
+!var/sessions/.gitkeep
 
 go-api-vue-js
 lastupdate.tmp
