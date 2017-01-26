@@ -50,7 +50,7 @@ export default new Vuex.Store({
             try {
                 await $.ajax({
                     method: 'DELETE',
-                    url: `/api/v1f/tasks/${task.id}`,
+                    url: `/api/v1/tasks/${task.id}`,
                 });
                 commit('REMOVE_TASK', task)
             } catch (jqXHR) {

@@ -11,3 +11,7 @@ autorender = false
 SessionOn = true
 SessionProvider = "file"
 SessionProviderConfig = "./var/sessions"
+# Admin
+EnableAdmin = true
+AdminHttpAddr = "localhost"
+AdminHttpPort = 8088
