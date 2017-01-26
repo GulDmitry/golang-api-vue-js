@@ -11,6 +11,8 @@ Golang API and Vue JS
 * `go get github.com/beego/bee`
 * `go get github.com/satori/go.uuid`
 * `go get github.com/smartystreets/goconvey/convey`
+* `go get github.com/astaxie/beego/orm`
+* `go get github.com/go-sql-driver/mysql`
 * `cp conf/app.conf.dist conf/app.conf`
 
 > **Note**: `echo "export GOPATH=/var/www/golang" >> ~/.zshrc` and `echo "export GOROOT=/usr/lib/go" >> ~/.zshrc`
@@ -24,11 +26,12 @@ Golang API and Vue JS
 * Go to [http://localhost:8080](http://localhost:8080), API [http://localhost:8080/swagger/](http://localhost:8080/swagger/)
 * Tests `go test ./...` or `go test ./tests`
 
-## Run Docker
+## Run Docker (DEV only)
 * `docker-compose up` run server and generate API docs
 * Webpack
   * For `runmode = prod` generate assets `NODE_ENV='production' ./node_modules/.bin/webpack -p`
   * For `runmode = dev` run `./node_modules/.bin/webpack-dev-server --progress --colors --port 8081 --content-base=static/`
+* Uncomment `testDB()` in `controllers/main.go:init()` to test the ORM.
 * Go to [http://localhost:8080](http://localhost:8080), API [http://localhost:8080/swagger/](http://localhost:8080/swagger/), MySQL UI [http://localhost:8090](http://localhost:8090)
 * Tests `./bin/go test ./...` or `./bin/go test ./tests`
 
