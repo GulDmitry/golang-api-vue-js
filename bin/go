@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+cd "$DIR/../" # force phpstorm to sit in project's root dir when running tests
+docker run -i --rm -v "${PWD}":"${PWD}" -v $HOME:$HOME -v "${PWD}":/go/src/github.com/guldmitry/go-api-vue-js -w ${PWD} --net=host --sig-proxy=true --pid=host goapivuejs_golang go "$@"

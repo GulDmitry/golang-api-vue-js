@@ -1,0 +1,53 @@
+version: '2'
+services:
+  golang:
+    build: ./conf/docker/golang
+    container_name: gavj-go
+    command: bee run github.com/guldmitry/go-api-vue-js -downdoc=true -gendoc=true
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./:/go/src/github.com/guldmitry/go-api-vue-js
+    depends_on:
+      - db
+    networks:
+      base_net:
+        ipv4_address: 172.16.238.11
+
+  db:
+    image: mysql:5.7
+    container_name: gavj-db
+    volumes:
+      - ./conf/docker/mysql/local.cnf:/etc/mysql/conf.d/local.cnf
+    ports:
+      - "3366:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: gavj
+    networks:
+      base_net:
+        ipv4_address: 172.16.238.10
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: gavj-pma
+    ports:
+      - "8090:80"
+    environment:
+      PMA_ARBITRARY: 0
+      PMA_HOST: 172.16.238.10
+      PMA_USER: root
+      PMA_PASSWORD: root
+    depends_on:
+      - db
+    networks:
+      base_net:
+
+networks:
+  base_net:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.16.238.0/24
+        gateway: 172.16.238.1

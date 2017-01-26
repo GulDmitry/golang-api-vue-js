@@ -1,5 +1,5 @@
 # https://beego.me/docs/mvc/controller/config.md
-appname = go-api-vue
+appname = go-api-vue-js
 httpport = 8080
 runmode = dev
 EnableDocs = true
